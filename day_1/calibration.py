@@ -1,11 +1,10 @@
 class Input:
     def __init__(self):
-        self.document = [
-            "1abc2",
-            "pqr3stu8vwx",
-            "a1b2c3d4e5f",
-            "treb7uchet",
-        ]
+        self.document = []
+        with open("input", "r") as input:
+            for line in input:
+                self.document.append(line.strip())
+        print(f"Loaded {len(self.document)} lines into the calibration document")
 
 
 class Calibration(Input):
@@ -31,14 +30,19 @@ class Calibration(Input):
                 break
             i = i - 1
 
+        value = int(f"{first_digit}{last_digit}")
+        print(f"{s=}{value=}")
         return int(f"{first_digit}{last_digit}")
 
 
 def main():
     solution = Calibration()
 
+    c = 1
     for s in solution.document:
+        print(f"Line: {c}")
         solution.values.append(solution.calibrate(s))
+        c = c + 1
 
     print(sum(solution.values))
 
