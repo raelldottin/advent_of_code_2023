@@ -14,7 +14,9 @@ class Calibration(Input):
 
     def convert(self, s: str) -> str:
         # print(f"{s=}")
-        if s == "one":
+        if s == "zero":
+            s = "0"
+        elif s == "one":
             s = "1"
         elif s == "two":
             s = "2"
@@ -36,11 +38,23 @@ class Calibration(Input):
 
         return s
 
-    def calibrate(self, s: str) -> int:
-        numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-        numbers.extend(
-            ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
-        )
+    def calibrate(self, s: str, part: int = 1) -> int:
+        numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        if part == 2:
+            numbers.extend(
+                [
+                    "zero",
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five",
+                    "six",
+                    "seven",
+                    "eight",
+                    "nine",
+                ]
+            )
         first_digit = "0"
         last_digit = "0"
 
@@ -59,7 +73,6 @@ class Calibration(Input):
             i = i + 1
 
         match = False
-        match_index = i + 1
         i = len(s)
         while i > 0:
             for number in numbers:
@@ -75,28 +88,26 @@ class Calibration(Input):
         first_digit = self.convert(first_digit)
         last_digit = self.convert(last_digit)
 
-        # I don't know if missing values is considered 0.
-        # value = (
-        #    int(f"{first_digit}{last_digit}")
-        #    if last_digit != "0"
-        #    else int(f"{first_digit}")
-        # )
         value = int(f"{first_digit}{last_digit}")
-        print(f"String: {s}")
-        print(f"Calibration value: {value}")
+        # print(f"String: {s}")
+        # print(f"Calibration value: {value}")
         return value
 
 
 def main():
-    solution = Calibration()
-
+    part1 = Calibration()
     c = 1
-    for s in solution.document:
-        print(f"Line Number: {c}")
-        solution.values.append(solution.calibrate(s))
+    for s in part1.document:
+        part1.values.append(part1.calibrate(s))
         c = c + 1
+    print(f"Sum of all calibration values for part 1 is {sum(part1.values)}")
 
-    print(f"Sum of all calibration values is {sum(solution.values)}")
+    part2 = Calibration()
+    c = 1
+    for s in part2.document:
+        part2.values.append(part2.calibrate(s, 2))
+        c = c + 1
+    print(f"Sum of all calibration values for part 2 is {sum(part2.values)}")
 
 
 if __name__ == "__main__":
