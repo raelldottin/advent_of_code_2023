@@ -47,13 +47,47 @@ class Game(Input):
             sum = sum + id
         return sum
 
+    def solution_part2(self, data, spec):
+        sum = {"total": 0}
+
+        # Iterate through the game records
+        for id, record in data.items():
+            sum["power"] = 1
+            # Create empty lists for the dice colors
+            for color in spec:
+                sum[color] = 0
+            # get each set of cubes
+            for cubes_revealed in record:
+                # checking if each color exists in a set of cubes
+                for color in spec:
+                    if color in cubes_revealed:
+                        # save the color to the list if it 
+
+                        if sum[color] == 0:
+                            sum[color] = cubes_revealed[color]
+                        if cubes_revealed[color] > sum[color]:
+                            sum[color] = cubes_revealed[color]
+
+            for color in spec:
+                if sum[color]:
+                    sum["power"] = sum["power"] * sum[color] 
+
+            sum["total"] = sum["total"] + sum["power"]
+
+        return sum["total"]
+
 
 def main():
     solution = Game()
     sum = solution.solution_part1(
         (solution.santize_data(solution.data)), {"red": 12, "green": 13, "blue": 14}
     )
-    print(f"Sum of the IDs of possible games: {sum}")
+    print(f"Part 1 sum of the IDs of possible games: {sum}")
+
+    sum = solution.solution_part2(
+        (solution.santize_data(solution.data)), {"red", "green", "blue"}
+    )
+    print(f"Part 2 sum of the IDs of possible games: {sum}")
 
 
 if __name__ == "__main__":
