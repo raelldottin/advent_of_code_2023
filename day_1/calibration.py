@@ -92,19 +92,21 @@ class Calibration(Input):
 
 
 def main():
+    values = []
     part1 = Calibration()
     c = 1
     for s in part1.document:
-        part1.values.append(part1.calibrate(s))
+        values.append(part1.calibrate(s))
         c = c + 1
-    print(f"Sum of all calibration values for part 1 is {sum(part1.values)}")
+    print(f"Sum of all calibration values for part 1 is {sum(values)}")
 
+    values = []
     part2 = Calibration()
     c = 1
     for s in part2.document:
-        part2.values.append(part2.calibrate(s, 2))
+        values.append(part2.calibrate(s, 2))
         c = c + 1
-    print(f"Sum of all calibration values for part 2 is {sum(part2.values)}")
+    print(f"Sum of all calibration values for part 2 is {sum(values)}")
 
 
 if __name__ == "__main__":
