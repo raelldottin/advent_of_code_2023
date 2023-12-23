@@ -11,29 +11,20 @@ class Calibration(Input):
 
     def convert(self, s: str) -> str:
         # print(f"{s=}")
-        if s == "zero":
-            s = "0"
-        elif s == "one":
-            s = "1"
-        elif s == "two":
-            s = "2"
-        elif s == "three":
-            s = "3"
-        elif s == "four":
-            s = "4"
-        elif s == "five":
-            s = "5"
-        elif s == "six":
-            s = "6"
-        elif s == "seven":
-            s = "7"
-        elif s == "eight":
-            s = "8"
-        elif s == "nine":
-            s = "9"
-        # print(f"{s=}")
+        table = { "zero": 0,
+        "one": 1,
+        "two": 2,
+        "three": 3,
+        "four": 4,
+        "five": 5,
+        "six": 6,
+        "seven": 7,
+        "eight": 8,
+        "nine": 9,
+        }
+        
 
-        return s
+        return table[s]
 
     def calibrate(self, s: str, part: int = 1) -> int:
         numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
