@@ -1,9 +1,6 @@
 class Input:
     def __init__(self):
-        self.document = []
-        with open("input", "r") as input:
-            for line in input:
-                self.document.append(line.strip())
+        self.document = list(open("input", "r"))
         print(f"Loaded {len(self.document)} lines into the calibration document")
 
 
