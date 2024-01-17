@@ -45,23 +45,26 @@ class Solution(Input):
     def solve(self):
         sum = 0
         for line_index, line in enumerate(self.data):
-            future_index = 0
             number = []
             match = False
+            prev_match = False
             for character_index, character in enumerate(line):
-                if match and not line[character_index].isdigit():
-                    print(f"Line {line_index + 1}: {character=} {number=} {match=}")
+                if (match and not character.isdigit()) or (match and character.isdigit() and (character_index == (len(line) - 1))):
                     sum = sum + int(''.join(number))
                     number = []
                     match = False
-                if line[character_index].isdigit():
+                    prev_match = False
+
+                if not character.isdigit() and not match:
+                    number = []
+                    continue
+
+                if character.isdigit():
+                    number.append(character)
                     prev_match = match
                     match = self.adjacency(self.data, line_index, character_index)
                     if not match and prev_match:
                         match = prev_match
-                    number.append(line[character_index])
-                    future_index = character_index
-                    character_index = character_index + 1
 
         print(f"Sum: {sum}")
 
